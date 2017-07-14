@@ -1,0 +1,64 @@
+<html>
+    <head>
+         <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-route.js"></script>
+    
+    </head>
+    <body ng-app="myApp" ng-controller="myCtrl">
+        <h1 style="height:100px; width:100%; text-align:center;line-height:100px; font-size:30px; background:black;color:white">
+			My Employee Data
+        </h1>
+        <div ng-view></div>
+        <script>
+            var ang=angular.module("myApp",['ngRoute']);
+            ang.controller("myCtrl",function($scope,$http,$routeParams){
+                $http.get("https://jsonplaceholder.typicode.com/users").then(function(response) {
+				$scope.myData = response.data;
+				$scope.whichEmp=$routeParams.empId;
+                });
+            
+            $scope.editing=false;
+            $scope.addItem=function(item){
+                        $scope.myData.push(item);
+                        $scope.item={};
+                    }
+            $scope.removeItem=function(index){
+                        $scope.myData.splice(index,1);
+                        
+                    }
+                    $scope.editItem=function(index){
+                        $scope.editing=$scope.items.indexOf(index);
+                    }
+                    $scope.saveFiled=function(index){
+                        if($scope.editing !== false){
+                            $scope.editing=false;
+                        }
+                    };
+                    $scope.cancel=function(index){
+                        if($scope.editing !== false){
+                            $scope.editing= false;
+                        }
+                    };
+            });
+            ang.config(function($routeProvider){
+                
+               $routeProvider
+               .when("/",{
+                   
+                   templateUrl: "index.html",
+				   controller:'myCtrl'
+               })
+               .when("/one/:empId",{
+                   templateUrl: "details.html",
+				   controller:'myCtrl'
+               });
+            });
+        </script>
+        
+    </body>
+    
+</html>

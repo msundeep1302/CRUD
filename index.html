@@ -1,0 +1,63 @@
+<table border='0' cellspacing='0' cellpadding='10'>
+                <tr>
+                    <td>Id:</td>
+                    <td><input type="text" ng-model="item.id" /></td>
+                </tr>               
+                <tr>
+                    <td>Name:</td>
+                    <td><input type="text" ng-model="item.name" /></td>
+                </tr>
+                <tr>
+                    <td>User Name:</td>
+                    <td><input type="text" ng-model="item.username" /></td>
+                </tr>
+                <tr>
+                    <td>Email Id:</td>
+                    <td><input type="text" ng-model="item.email" /></td>
+                </tr>
+               
+                <tr>
+                    <td><input type="button" value="Add to List" ng-click="addItem(item)" /></td>
+                </tr>
+</table>
+            
+
+
+<table border='1' cellspacing='0' cellpadding='10'>
+            <tr>
+                <td>Id</td>
+                <td>Name</td>
+                <td>User Name</td>
+                <td>Email</td>
+                <td>Action</td>
+                <td>Details</td>
+            </tr>
+            <tr ng-repeat="item in myData">
+                <td>
+                    <span ng-hide="editMode">{{item.id}}</span>
+                    <input type="text" ng-show="editMode" ng-model="item.id"/>
+                </td>
+                <td>
+                    <span ng-hide="editMode">{{item.name}}</span>
+                    <input type="text" ng-show="editMode" ng-model="item.name"/>
+                </td>
+                <td>
+                    <span ng-hide="editMode">{{item.username}}</span>
+                    <input type="text" ng-show="editMode" ng-model="item.username"/>
+                </td>
+                <td>
+                    <span ng-hide="editMode">{{item.email}}</span>
+                    <input type="text" ng-model="item.email" ng-show="editMode"/>
+                </td>
+                <td>
+                    <span class="glyphicon glyphicon-pencil" ng-hide="editMode" ng-click="editMode=true;editItem(item)"></span>
+                    <span class="glyphicon glyphicon-save" ng-show="editMode" ng-click="editMode=false"></span>
+                    <span class="glyphicon glyphicon-trash" ng-click="removeItem($index)"></span>
+                    
+                    
+                    
+                </td>
+                
+                <td><a href="#one/{{myData.indexOf(item)}}"><button>details</button></a></td>
+            </tr>
+        </table>
